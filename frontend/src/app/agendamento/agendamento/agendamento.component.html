@@ -1,0 +1,59 @@
+<div class="jumbotron ">
+    <div class="home-wrap">
+        <div class="home-inner">
+            <form #form="ngForm" (ngSubmit)="onSubmit()">
+                <div class="row" style="padding-top: 35px;">
+                    <div class="col-md-4">
+                        <strong> <label for="">* Data do Serviço:</label> </strong>
+                        <input id="data" type="date" name="dataServico" class="form-control"
+                            placeholder="Data de Nascimento" [(ngModel)]="dataServico" (focusout)="dataSelecionada()">
+                    </div>
+                    <div class="col-md-4">
+                        <strong> <label>* Selecione o horario:</label> </strong>
+                        <select class="form-control" name="horario" [(ngModel)]="horario">
+                            <option value="">Selecione...</option>
+                            <!-- <option *ngFor="let horario of hora" [value]="horario">{{horario}}</option> -->
+                            <option value="8:00">8:00</option>
+                            <option value="8:40">8:40</option>
+                            <option value="9:20">9:20</option>
+                            <option value="10:00">10:00</option>
+                            <option value="10:40">10:40</option>
+                            <option value="11:20">11:20</option>
+                            <option value="14:00">14:00</option>
+                            <option value="14:40">14:40</option>
+                            <option value="15:20">15:20</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:40">16:40</option>
+                            <option value="17:20">17:20</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:40">18:40</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong> <label for="email">* Selecione o Serviço:</label> </strong>
+                        <select class="form-control" name="servico" [(ngModel)]="servico">
+                            <option value="0" selected disabled>Selecione o serviço</option>
+                            <option value="corte">Corte</option>
+                            <option value="barba Normal">Barba Normal</option>
+                            <option value="Barba Terapia">Barba Terapia</option>
+                            <option value="sobrancelha">Sobrancelha</option>
+                            <option value="Corte e Barba">Corte e Barba Normal</option>
+                            <option value="Corte e Barba Terapia">Corte e Barba Terapia</option>
+                            <option value="Corte e Sobrancelha">Corte e Sobrancelha</option>
+                            <option value="Corte barba normal e sobrancelha">Corte, Barba Normal e Sobrancelha </option>
+                            <option value="Corte Barba Terapia e sombrancelha">Corte, Barba Terapia e Sobrancelha
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Confirmar Agendamento</button>
+                    <a class=" btn btn-danger" routerLink="/home">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

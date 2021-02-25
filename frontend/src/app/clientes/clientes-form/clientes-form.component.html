@@ -1,0 +1,45 @@
+
+<div class="jumbotron ">
+    <div class="home-wrap">
+        <div class="home-inner" >
+            <form #form="ngForm" (ngSubmit)="onSubmit()">
+                <div class="row" style="padding-top: 35px;">
+                    <div class="col-md-4">
+                        <strong> <label >* Nome Completo:</label> </strong>
+                        <input type="text"  class="form-control" name="nome" [(ngModel)]="cliente.nome" placeholder="Ex: Angelica Felix de Sousa">
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong> <label for="email">* Email:</label> </strong>
+                        <input type="email" id="email" class="form-control" name="email" [(ngModel)]="cliente.email" placeholder="Ex: angelica@gmail.com">
+                    </div>
+                    <div class="col-md-4">
+                        <strong> <label for="dn">* Data de Nascimento:</label> </strong>
+                        <input id="data" type="date" class="form-control input" name="data_nascimento" [(ngModel)]="cliente.data_nascimento"placeholder="Data de Nascimento">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong> <label >* Telefone:</label> </strong>
+                        <input type="text"  class="form-control " name="telefone" [(ngModel)]="cliente.celular"placeholder="(83)98822-3344">
+                    </div>
+                    <div class="col-md-6">
+                        <strong> <label for="">* Senha:</label> </strong>
+                        <input type="password" id="" class="form-control " name="senha" [(ngModel)]="cliente.senha">
+                    </div>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" >Confirmar cadastro</button>
+                    <a class=" btn btn-danger" routerLink="">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+  
+  
