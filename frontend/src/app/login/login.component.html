@@ -21,6 +21,7 @@
                         <button type="submit" class="btn btn-primary mb-1">Entrar</button>
                         <a class="btn btn-danger mb-1 ml-1" routerLink="">Cancelar</a>
                     </div>
+                    <div class="alerta" *ngIf="alerta === false">Usuário ou senha inválidos</div>   
                 </form>
                 <div class="card-footer text-center">
                     <div class="small">

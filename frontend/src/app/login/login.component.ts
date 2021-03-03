@@ -2,6 +2,7 @@ import { AuthService } from './../auth.service';
 import { Usuario } from './usuario';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { concat } from 'rxjs';
 
 
 @Component({
@@ -15,22 +16,31 @@ export class LoginComponent {
   public email: string;
   public senha: string;
 
+  public alerta : boolean
+
+
   constructor(private router: Router, private authService : AuthService) { }
 
 
-  onSubmit(){
-    //this.usuario.cliente.email = this.email;
-    //this.usuario.cliente.senha = this.senha;
-    //console.log(" enviando pra service: "+ this.usuario.cliente.email, this.usuario.cliente.senha)
-   // console.log(" enviando pra service: "+ this.email, this.senha)
-   let userLogin : Usuario = new Usuario(this.email, this.senha)
+  async onSubmit(){
+    let userLogin : Usuario = new Usuario(this.email, this.senha)
+    
+    try{
+      let res = await this.authService.tentarLogar(userLogin)
+      this.router.navigate([''])      
+    }catch(erro){
+     this.alerta = false
+    }
+     
+      
+
+    
+
    
-  try{
-    let res = this.authService.tentarLogar(userLogin)
-    this.router.navigate(['']);
-  }catch(erro){
-    console.log("erro")
-  }
+    
+       //this.router.navigate(['']);
+    
+  
     
   }
 }
