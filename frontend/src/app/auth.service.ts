@@ -1,12 +1,14 @@
 
 import { environment } from './../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Usuario } from './login/usuario';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 
 import {JwtHelperService} from '@auth0/angular-jwt'
+import { catchError, map } from 'rxjs/operators';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 interface Login {
   idUser: string,
@@ -16,6 +18,7 @@ interface Login {
   exp: number,
   token: string
 }
+
 
 
 @Injectable({
@@ -28,30 +31,34 @@ export class AuthService {
 
   constructor( private http: HttpClient) { }
 
+
   
-  salvar(usuario : Usuario): Observable<any>{
+  salvar(usuario : Usuario): Observable<string>{
     return this.http.post<any>(this.apiURL, usuario);
   }
   
-   tentarLogar(usuario : Usuario ): Observable<Login>{
-    //const params =  new HttpParams().set('username', email).set('password', senha).set('grant_type', 'password')
-    //const headers = {'Authorization': 'Basic ' + btoa(`${this.clientID}:${this.clientSecret}`),
-      //'Content-Type': 'application/x-www-form-urlencoded'
-    //}
-    
-    let res = this.http.post<Login>(`${environment.apiURLBase}/login`,usuario)
-    res.subscribe((response)=>{
-      localStorage.setItem('access_token', response.token), 
-      localStorage.setItem('nameUser', response.name),
-      localStorage.setItem('idUser', response.idUser)
-    })
-    return res;
+   async tentarLogar(usuario : Usuario ): Promise<Login>{
+      let result = await this.http.post<Login>(`${environment.apiURLBase}/login`,usuario).toPromise()
+      localStorage.setItem('access_token', result.token), 
+      localStorage.setItem('nameUser', result.name),
+      localStorage.setItem('idUser', result.idUser)
+      return result
   }
+
+  //   private getServerErrorMessage(error: HttpErrorResponse): number {
+  //     switch (error.status) {
+  //         case 400:{
+  //           return this.errorStatus = 400;
+  //         }
+  //         default: {
+  //             return this.errorStatus = 500;
+  //         }
+  //     }
+  // }
 
   obterToken(){
     const tokenString = localStorage.getItem('access_token')
     if(tokenString){
-      //const token = JSON.parse(tokenString).access_token
       return tokenString;
     }
     return null;
