@@ -8,16 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  public mostraSair : boolean
 
+  public isLogged: boolean;            
   
   constructor(private authService: AuthService, private router :Router) { }
 
   ngOnInit(): void {
+    this.authService.isLoggedIn.subscribe(res => this.isLogged = res)
+    
   }
 
   logout(){
     this.authService.encerrarSessao();
-    this.router.navigate(['']);
   }
 
 }
