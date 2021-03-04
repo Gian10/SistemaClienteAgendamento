@@ -1,12 +1,11 @@
 //import { AppModule } from './app.module';
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
 
 
-//import { ajax, css } from "jquery";
-//import * as $ from 'jquery';
-//import jQuery from 'jquery';
-//import $ from 'jquery';
-
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,6 +13,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'clientes-app';
-  
+
   
 }

@@ -1,10 +1,10 @@
 
 import { environment } from './../environments/environment';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { Usuario } from './login/usuario';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 import {JwtHelperService} from '@auth0/angular-jwt'
 import { catchError, map } from 'rxjs/operators';
@@ -26,23 +26,36 @@ interface Login {
 })
 export class AuthService {
 
-    apiURL: string = environment.apiURLBase + "/users"
-    jwtHelper : JwtHelperService = new JwtHelperService();
+  apiURL: string = environment.apiURLBase + "/users"
+  jwtHelper : JwtHelperService = new JwtHelperService();
+
+  
+  public loggedIn = new BehaviorSubject<boolean>(false);
 
   constructor( private http: HttpClient) { }
 
+  get isLoggedIn() {
+    return this.loggedIn.asObservable(); 
+  }
 
   
   salvar(usuario : Usuario): Observable<string>{
     return this.http.post<any>(this.apiURL, usuario);
   }
   
-   async tentarLogar(usuario : Usuario ): Promise<Login>{
+   async tentarLogar(usuario : Usuario ): Promise<boolean>{
+     try{
       let result = await this.http.post<Login>(`${environment.apiURLBase}/login`,usuario).toPromise()
       localStorage.setItem('access_token', result.token), 
       localStorage.setItem('nameUser', result.name),
       localStorage.setItem('idUser', result.idUser)
-      return result
+      this.loggedIn.next(true)
+      return true
+
+     }catch(erro){
+      return false
+     }
+      
   }
 
   //   private getServerErrorMessage(error: HttpErrorResponse): number {
@@ -75,6 +88,9 @@ export class AuthService {
 
   encerrarSessao(){
     localStorage.removeItem('access_token');
+    localStorage.removeItem('nameUser'),
+    localStorage.removeItem('idUser')
+    location.reload()
   }
 
 

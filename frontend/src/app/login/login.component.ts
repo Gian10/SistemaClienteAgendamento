@@ -1,6 +1,6 @@
 import { AuthService } from './../auth.service';
 import { Usuario } from './usuario';
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { concat } from 'rxjs';
 
@@ -25,21 +25,13 @@ export class LoginComponent {
   async onSubmit(){
     let userLogin : Usuario = new Usuario(this.email, this.senha)
     
-    try{
-      let res = await this.authService.tentarLogar(userLogin)
+    let res = await this.authService.tentarLogar(userLogin)
+    if(res){
+      //location.reload()
       this.router.navigate([''])      
-    }catch(erro){
-     this.alerta = false
+    }else{
+      this.alerta = false
     }
-     
-      
-
-    
-
-   
-    
-       //this.router.navigate(['']);
-    
   
     
   }
