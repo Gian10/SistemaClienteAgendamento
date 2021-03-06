@@ -27,7 +27,6 @@ export class LoginComponent {
     
     let res = await this.authService.tentarLogar(userLogin)
     if(res){
-      //location.reload()
       this.router.navigate([''])      
     }else{
       this.alerta = false

@@ -6,7 +6,7 @@
                     <div class="col-md-4">
                         <strong> <label for="">* Data do Serviço:</label> </strong>
                         <input id="data" type="date" name="dataServico" class="form-control"
-                            placeholder="Data de Nascimento" [(ngModel)]="dataServico" (focusout)="dataSelecionada()">
+                         ([ngModel])="dataServico" value="{{dataServico | date:'yyyy-dd-MM'}}" (change)="dataSelecionada($event)">
                     </div>
                     <div class="col-md-4">
                         <strong> <label>* Selecione o horario:</label> </strong>
