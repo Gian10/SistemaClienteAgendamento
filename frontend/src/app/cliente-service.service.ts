@@ -18,7 +18,6 @@ interface ResUser{
 })
 export class ClienteServiceService {
     
-
   //const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
   public responseMessage : string
 
@@ -29,8 +28,6 @@ export class ClienteServiceService {
   
     return this.http.post(`${environment.apiURLBase}/users`, cliente, ) 
     .pipe(map((res : ResUser)=> {return res.message}))  
-  
-   
     }
   
 

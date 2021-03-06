@@ -39,9 +39,9 @@ export class AuthService {
   }
 
   
-  salvar(usuario : Usuario): Observable<string>{
-    return this.http.post<any>(this.apiURL, usuario);
-  }
+  // salvar(usuario : Usuario): Observable<string>{
+  //   return this.http.post<any>(this.apiURL, usuario);
+  // }
   
    async tentarLogar(usuario : Usuario ): Promise<boolean>{
      try{
